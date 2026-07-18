@@ -135,26 +135,54 @@
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
-            <% listings.forEach(function(listing) { %>
-                <div class="col">
-                    <a class="text-decoration-none" href="/listings/<%= listing.id %>">
-                        <div class="card h-100">
-                            <img src="<%= listing.image.url %>" class="card-img-top" alt="...">
-                            <div class="card-img-overlay"></div>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    <b>
-                                        <%= listing.title %>
-                                    </b> <br>
-                                    <span class="listing-price" data-price="<%= listing.price %>">
-                                        <%= "$" + listing.price.toLocaleString("en-US") %>/night
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </a>
+        <% if (typeof q !== 'undefined' && q && q.trim() !== "") { %>
+            <div class="d-flex align-items-center justify-content-between mb-4 mt-2 px-3 py-2 bg-light rounded-pill border">
+                <span class="text-muted fw-semibold">
+                    <i class="fa-solid fa-magnifying-glass me-2 text-danger"></i>
+                    Search results for "<span class="text-dark fw-bold"><%= q %></span>"
+                </span>
+                <a href="/listings" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                    Clear Search
+                </a>
+            </div>
+        <% } %>
+
+        <% if (listings.length === 0) { %>
+            <div class="col-12 text-center py-5 my-5 border rounded shadow-sm bg-white">
+                <div class="mb-4">
+                    <i class="fa-solid fa-folder-open text-muted" style="font-size: 4rem;"></i>
                 </div>
-                <% }); %>
-        </div>
+                <h3 class="fw-bold text-dark mb-2">No listings found</h3>
+                <p class="text-muted mx-auto" style="max-width: 500px;">
+                    We couldn't find any listings matching "<span class="fw-bold"><%= q %></span>". 
+                    Please check your spelling, search for a different destination, or browse all options.
+                </p>
+                <a href="/listings" class="btn btn-danger rounded-pill px-4 py-2 mt-3 fw-bold" style="background-color: #ff385c; border: none;">
+                    Browse All Listings
+                </a>
+            </div>
+        <% } else { %>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
+                <% listings.forEach(function(listing) { %>
+                    <div class="col">
+                        <a class="text-decoration-none" href="/listings/<%= listing.id %>">
+                            <div class="card h-100">
+                                <img src="<%= listing.image.url %>" class="card-img-top" alt="...">
+                                <div class="card-img-overlay"></div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <b>
+                                            <%= listing.title %>
+                                        </b> <br>
+                                        <span class="listing-price" data-price="<%= listing.price %>">
+                                            <%= "$" + listing.price.toLocaleString("en-US") %>/night
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <% }); %>
+            </div>
+        <% } %>
     </body>

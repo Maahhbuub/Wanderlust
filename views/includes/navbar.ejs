@@ -8,8 +8,9 @@
 
         <!-- Center: Search Bar for Desktop -->
         <div class="d-none d-lg-flex justify-content-center" style="flex: 1; max-width: 500px;">
-            <form class="d-flex w-100 align-items-center gap-2" role="search">
-                <input class="form-control" type="search" placeholder="Search destinations" aria-label="Search"
+            <form class="d-flex w-100 align-items-center gap-2" action="/listings" method="GET" role="search">
+                <input name="q" class="form-control" type="search" placeholder="Search destinations" aria-label="Search"
+                    value="<%= typeof q !== 'undefined' ? q : '' %>"
                     style="border-radius: 999px; border: 1px solid #dee2e6; padding: 0.5rem 1.25rem;">
                 <button class="btn d-flex align-items-center gap-2 text-white text-nowrap" type="submit"
                     style="background-color: #ff385c; border-radius: 999px; padding: 0.5rem 1.25rem; border: none;">
@@ -40,8 +41,9 @@
 <!-- Mobile Search Panel (slide up above tab bar) -->
 <div id="mobileSearchPanel" class="d-lg-none"
     style="display:none !important; position:fixed; bottom:3.5rem; left:0; right:0; z-index:1029; background:#fff; border-top:1px solid #dee2e6; padding:0.75rem 1rem;">
-    <form class="d-flex align-items-center gap-2" role="search">
-        <input class="form-control" type="search" placeholder="Search destinations" aria-label="Search"
+    <form class="d-flex align-items-center gap-2" action="/listings" method="GET" role="search">
+        <input name="q" class="form-control" type="search" placeholder="Search destinations" aria-label="Search"
+            value="<%= typeof q !== 'undefined' ? q : '' %>"
             style="border-radius:999px; border:1px solid #dee2e6; padding:0.45rem 1rem;">
         <button class="btn d-flex align-items-center gap-1 text-white text-nowrap" type="submit"
             style="background-color:#ff385c; border-radius:999px; padding:0.45rem 1.1rem; border:none;">

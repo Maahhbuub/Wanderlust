@@ -4,8 +4,13 @@ const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.index = async (req, res) => {
-    let listings = await Listing.find({});
-    res.render("Listings/index.ejs", { listings });
+    let { q } = req.query;
+    let query = {};
+    if (q && q.trim() !== "") {
+        query.title = { $regex: q.trim(), $options: "i" };
+    }
+    let listings = await Listing.find(query);
+    res.render("Listings/index.ejs", { listings, q });
 }
 
 module.exports.renderNewForm = (req, res) => { // only logged in users can create listing

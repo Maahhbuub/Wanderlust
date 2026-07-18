@@ -8,7 +8,10 @@ module.exports.renderSignupForm = (req, res) => {
 
 module.exports.signup = async (req, res, next) => {
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password, confirmPassword } = req.body;
+        if (password !== confirmPassword) {
+            throw new Error("Passwords do not match!");
+        }
         const user = new User({ email, username });
         const registeredUser = await User.register(user, password);
 
@@ -19,8 +22,8 @@ module.exports.signup = async (req, res, next) => {
             res.redirect("/listings");
         });
     } catch (e) {
-        const { username, email, password } = req.body;
-        res.render("users/signup", { signupError: e.message, username, email, password });
+        const { username, email, password, confirmPassword } = req.body;
+        res.render("users/signup", { signupError: e.message, username, email, password, confirmPassword });
     }
 }
 
