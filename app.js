@@ -109,6 +109,7 @@ async function main() {
     await mongoose.connect(dbUrl);
 }
 
-app.listen(8080, () => {
-    console.log("Server is running on: http://localhost:8080/listings");
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
+    console.log(`Server is running on: http://localhost:${PORT}/listings`);
 })
