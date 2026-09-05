@@ -71,6 +71,14 @@ app.use((req, res, next) => {
     next();
 });
 
+// health check
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "healthy",
+        uptime: process.uptime(),
+    });
+});
+
 // api routes
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
